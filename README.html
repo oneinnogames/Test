@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Güvenlik Kontrol</title>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
+        }
+        #code {
+            font-size: 36px;
+            margin: 20px 0;
+        }
+        #time {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Güvenlik QR Kodu</h1>
+    <div id="code"></div>
+    <div id="time"></div>
+    <div id="qrcode"></div>
+
+    <script>
+        function generateCode() {
+            // 6 haneli rastgele kod
+            const code = Math.floor(100000 + Math.random() * 900000);
+            const currentTime = new Date().toLocaleTimeString();
+            
+            // Kodu ve saati göster
+            document.getElementById("code").innerHTML = code;
+            document.getElementById("time").innerHTML = currentTime;
+            
+            // QR kodu yenile
+            document.getElementById("qrcode").innerHTML = "";
+            new QRCode(document.getElementById("qrcode"), {
+                text: code.toString(),
+                width: 256,
+                height: 256
+            });
+        }
+
+        // Sayfa yüklendiğinde ve her saat başı çalıştır
+        generateCode();
+        setInterval(generateCode, 3600000);
+    </script>
+</body>
+</html>
